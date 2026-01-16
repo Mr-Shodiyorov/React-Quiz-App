@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
+import { UserContext } from "./UseProvider";
 
-function FinishBtn({ dispatch, answer }) {
+function FinishBtn() {
+  const { dispatch, answers, index } = useContext(UserContext);
+
+  if (answers[index] === undefined) return null;
+
   return (
     <div>
       <button

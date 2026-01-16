@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
+import { UserContext } from "./UseProvider";
 
-function NextBtn({ dispatch, answer }) {
+function NextBtn() {
+  const { dispatch} = useContext(UserContext);
+
+
+
   return (
     <div>
       <button

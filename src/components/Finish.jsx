@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
+import { UserContext } from "./UseProvider";
 
-function Finish({ points, dispatch, allQuestion, timer }) {
-  const maxPossiblePoint = allQuestion.reduce(
+function Finish() {
+  const { points, dispatch, questions, timer } = useContext(UserContext);
+
+  const maxPossiblePoint = questions.reduce(
     (total, el) => total + el.points,
     0
   );
   
-  const mins = Math.floor(timer / 60);
-  const seconds = timer % 60;
+  const totalTimeGiven = questions.length * 30;
+  const timeTaken = totalTimeGiven - timer;
+  
+  const mins = Math.floor(timeTaken / 60);
+  const seconds = timeTaken % 60;
 
   const percentage = Math.round((points / maxPossiblePoint) * 100);
 
@@ -16,13 +22,7 @@ function Finish({ points, dispatch, allQuestion, timer }) {
       <div className="start">
         <h2 className="finish-point">
           <span>
-            {points >= 200
-              ? "🔥"
-              : points >= 100
-              ? "😀"
-              : points >= 50
-              ? "🥲"
-              : "🤣"}
+            {points >= 200 ? "🔥" : points >= 100 ? "😀" : points >= 50 ? "🥲" : "🤣"}
           </span>
           <span>
             Final Score: ({points} / {maxPossiblePoint} points)
